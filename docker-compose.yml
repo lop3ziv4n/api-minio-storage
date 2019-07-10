@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+
+  storage:
+    container_name: storage
+    image: ar.org.example/api-minio-storage
+    restart: always
+    environment:
+      JAVA_OPTS: "-Xmx400M -Xms400M"
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CLOUD_CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_PORT: 8500
+    external_links:
+      - consul
+    networks:
+      - back-net
+
+networks:
+  back-net:
+    external:
+      name: net_172_15
+
+#docker network create --driver=bridge --subnet=172.15.0.0/16 --gateway=172.15.0.1 net_172_15
