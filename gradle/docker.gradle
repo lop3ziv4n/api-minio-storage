@@ -2,9 +2,9 @@ apply plugin: 'com.palantir.docker'
 
 docker {
     dependsOn build
-    name "${project.group}/${bootJar.archiveBaseName}"
+    name "${project.group}/${bootJar.baseName}"
     tags 'latest'
-    files bootJar.archiveFile
-    buildArgs(['JAR_FILE': "${bootJar.archiveBaseName}"])
+    files bootJar.archivePath
+    buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
     dockerfile file("src/main/docker/Dockerfile")
 }
